@@ -1,0 +1,17 @@
+{
+	"name": "deltadom",
+	"version": "1.0.0",
+	"description": "Execute client-side the results generated server-side by DeltaDOM",
+	"main": "src/main/javascript/DeltaDOM.js",
+	"files": [],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Leap-R-D/DeltaDOM.git"
+	},
+	"author": "Ryan Holdren",
+	"license": "Apache-2.0",
+	"bugs": {
+		"url": "https://github.com/Leap-R-D/DeltaDOM/issues"
+	},
+	"homepage": "https://github.com/Leap-R-D/DeltaDOM#readme"
+}
