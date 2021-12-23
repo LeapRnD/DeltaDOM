@@ -6,8 +6,8 @@ import org.w3c.dom.Node;
 import java.util.HashSet;
 
 import static com.leaprnd.deltadom.matching.MatcherRemovalResult.Emptied;
-import static com.leaprnd.deltadom.matching.MatcherRemovalResult.NotFound.NOT_FOUND;
-import static com.leaprnd.deltadom.matching.MatcherRemovalResult.Removed.REMOVED;
+import static com.leaprnd.deltadom.matching.MatcherRemovalResult.Values.NOT_FOUND;
+import static com.leaprnd.deltadom.matching.MatcherRemovalResult.Values.REMOVED;
 
 class SimilarityGrid<T extends Node> implements Matcher<T> {
 

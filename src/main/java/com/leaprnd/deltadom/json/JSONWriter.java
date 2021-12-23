@@ -5,9 +5,9 @@ import java.io.IOException;
 
 import static java.lang.Integer.toHexString;
 
-public class JSONWriter {
+class JSONWriter {
 
-	public class ArrayWriter implements Closeable {
+	class ArrayWriter implements Closeable {
 
 		private boolean comma = false;
 
@@ -57,7 +57,7 @@ public class JSONWriter {
 
 	}
 
-	public class ValueWriter implements Appendable, Closeable {
+	class ValueWriter implements Appendable, Closeable {
 
 		@Override
 		public Appendable append(CharSequence value) throws IOException {

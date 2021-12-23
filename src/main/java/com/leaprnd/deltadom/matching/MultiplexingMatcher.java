@@ -1,11 +1,13 @@
 package com.leaprnd.deltadom.matching;
 
+import com.leaprnd.deltadom.matching.MatcherRemovalResult.Emptied;
 import org.w3c.dom.Node;
 
 import java.util.HashMap;
 import java.util.function.Function;
 
 import static com.leaprnd.deltadom.Similarity.IMPOSSIBLE_MATCH;
+import static com.leaprnd.deltadom.matching.MatcherRemovalResult.Values.NOT_FOUND;
 
 abstract class MultiplexingMatcher<K, T extends Node> implements Matcher<T>, Function<K, Matcher<T>> {
 
@@ -21,10 +23,10 @@ abstract class MultiplexingMatcher<K, T extends Node> implements Matcher<T>, Fun
 		final var key = getKeyOf(node);
 		final var matcher = matchers.get(key);
 		if (matcher == null) {
-			return MatcherRemovalResult.NotFound.NOT_FOUND;
+			return NOT_FOUND;
 		}
 		final var result = matcher.removeX(node);
-		if (result instanceof MatcherRemovalResult.Emptied) {
+		if (result instanceof Emptied) {
 			matchers.remove(key);
 		}
 		return result;
@@ -39,10 +41,10 @@ abstract class MultiplexingMatcher<K, T extends Node> implements Matcher<T>, Fun
 		final var key = getKeyOf(node);
 		final var matcher = matchers.get(key);
 		if (matcher == null) {
-			return MatcherRemovalResult.NotFound.NOT_FOUND;
+			return NOT_FOUND;
 		}
 		final var result = matcher.removeY(node);
-		if (result instanceof MatcherRemovalResult.Emptied) {
+		if (result instanceof Emptied) {
 			matchers.remove(key);
 		}
 		return result;

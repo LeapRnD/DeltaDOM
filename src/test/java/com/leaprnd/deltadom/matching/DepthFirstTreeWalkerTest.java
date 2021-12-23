@@ -1,4 +1,4 @@
-package com.leaprnd.deltadom.util;
+package com.leaprnd.deltadom.matching;
 
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;

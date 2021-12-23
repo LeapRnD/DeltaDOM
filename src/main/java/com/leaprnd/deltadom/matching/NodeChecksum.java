@@ -1,6 +1,5 @@
 package com.leaprnd.deltadom.matching;
 
-import com.leaprnd.deltadom.util.DepthFirstTreeWalker;
 import org.w3c.dom.Node;
 
 import static java.lang.Long.rotateLeft;

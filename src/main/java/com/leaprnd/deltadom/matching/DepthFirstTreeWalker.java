@@ -1,8 +1,8 @@
-package com.leaprnd.deltadom.util;
+package com.leaprnd.deltadom.matching;
 
 import org.w3c.dom.Node;
 
-public record DepthFirstTreeWalker(Node root) implements Iterable<Node> {
+record DepthFirstTreeWalker(Node root) implements Iterable<Node> {
 	@Override
 	public DepthFirstTreeWalkerIterator iterator() {
 		return new DepthFirstTreeWalkerIterator(root);

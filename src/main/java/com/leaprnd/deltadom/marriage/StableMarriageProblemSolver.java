@@ -1,23 +1,14 @@
 package com.leaprnd.deltadom.marriage;
 
+import static com.leaprnd.deltadom.marriage.WalkResult.FOUND_BETTER_MARRIAGE;
+import static com.leaprnd.deltadom.marriage.WalkResult.NO_BETTER_MARRIAGES;
+import static com.leaprnd.deltadom.marriage.WalkResult.NO_MORE_UNMARRIED_MEN;
+import static com.leaprnd.deltadom.marriage.WalkResult.NO_MORE_UNMARRIED_WOMEN;
+
 public abstract class StableMarriageProblemSolver implements Runnable {
 
-	private static final byte NO_MORE_UNMARRIED_MEN = 1;
-	private static final byte NO_MORE_UNMARRIED_WOMEN = 2;
-	private static final byte NO_BETTER_MARRIAGES = 3;
-	private static final byte FOUND_BETTER_MARRIAGE = 4;
-
-	private final IndexSet men;
-	private final IndexSet women;
-
-	public StableMarriageProblemSolver() {
-		this.men = new IndexSet(getNumberOfMen());
-		this.women = new IndexSet(getNumberOfWomen());
-	}
-
-	protected abstract float getStrengthOfPotentialMarriageBetween(int indexOfMan, int indexOfWoman);
-	protected abstract int getNumberOfMen();
-	protected abstract int getNumberOfWomen();
+	private final IndexSet men = new IndexSet(getNumberOfMen());
+	private final IndexSet women = new IndexSet(getNumberOfWomen());
 
 	@Override
 	public void run() {
@@ -69,7 +60,7 @@ public abstract class StableMarriageProblemSolver implements Runnable {
 		}
 	}
 
-	private byte walkMen(int bestWoman, float strengthOfPreviousBestMarriage) {
+	private WalkResult walkMen(int bestWoman, float strengthOfPreviousBestMarriage) {
 		women.remove(bestWoman);
 		while (true) {
 			var bestMan = men.first();
@@ -102,7 +93,7 @@ public abstract class StableMarriageProblemSolver implements Runnable {
 		}
 	}
 
-	private byte walkWomen(int bestMan, float strengthOfPreviousBestMarriage) {
+	private WalkResult walkWomen(int bestMan, float strengthOfPreviousBestMarriage) {
 		men.remove(bestMan);
 		while (true) {
 			var bestWoman = women.first();
@@ -135,6 +126,9 @@ public abstract class StableMarriageProblemSolver implements Runnable {
 		}
 	}
 
+	protected abstract int getNumberOfMen();
+	protected abstract int getNumberOfWomen();
+	protected abstract float getStrengthOfPotentialMarriageBetween(int indexOfMan, int indexOfWoman);
 	protected abstract void onMarriageBetween(int indexOfMan, int indexOfWoman, float strengthOfMarriage);
 
 }

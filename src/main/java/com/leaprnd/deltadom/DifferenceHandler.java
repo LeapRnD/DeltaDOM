@@ -1,6 +1,5 @@
 package com.leaprnd.deltadom;
 
-import com.leaprnd.deltadom.selectors.Position;
 import com.leaprnd.deltadom.selectors.Selector;
 import org.w3c.dom.NamedNodeMap;
 

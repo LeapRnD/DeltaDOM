@@ -1,7 +1,10 @@
-package com.leaprnd.deltadom.selectors;
+package com.leaprnd.deltadom;
 
+import com.leaprnd.deltadom.selectors.Selector;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import static com.leaprnd.deltadom.selectors.Selector.toSelector;
 
 public record Position(Selector parent, int offset) {
 
@@ -13,11 +16,11 @@ public record Position(Selector parent, int offset) {
 			offset ++;
 			previousSibling = previousSibling.getPreviousSibling();
 		}
-		return new Position(Selector.toSelector(parent), offset);
+		return new Position(toSelector(parent), offset);
 	}
 
 	public static Position toInsertPosition(Node parent, int offset) {
-		return new Position(Selector.toSelector((Element) parent), offset);
+		return new Position(toSelector((Element) parent), offset);
 	}
 
 }

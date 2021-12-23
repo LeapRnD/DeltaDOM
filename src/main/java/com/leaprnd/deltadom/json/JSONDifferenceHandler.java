@@ -1,16 +1,28 @@
 package com.leaprnd.deltadom.json;
 
 import com.leaprnd.deltadom.DifferenceHandler;
-import com.leaprnd.deltadom.selectors.Position;
+import com.leaprnd.deltadom.Position;
+import com.leaprnd.deltadom.json.JSONWriter.ArrayWriter;
 import com.leaprnd.deltadom.selectors.Selector;
 import org.w3c.dom.NamedNodeMap;
 
 import java.io.Closeable;
 import java.io.IOException;
 
+import static com.leaprnd.deltadom.json.JSONEventType.DELETE_ELEMENT;
+import static com.leaprnd.deltadom.json.JSONEventType.DELETE_NODE;
+import static com.leaprnd.deltadom.json.JSONEventType.INSERT_COMMENT;
+import static com.leaprnd.deltadom.json.JSONEventType.INSERT_ELEMENT;
+import static com.leaprnd.deltadom.json.JSONEventType.INSERT_TEXT;
+import static com.leaprnd.deltadom.json.JSONEventType.MOVE_ELEMENT;
+import static com.leaprnd.deltadom.json.JSONEventType.MOVE_NODE;
+import static com.leaprnd.deltadom.json.JSONEventType.REMOVE_ATTRIBUTE;
+import static com.leaprnd.deltadom.json.JSONEventType.SET_ATTRIBUTE;
+import static com.leaprnd.deltadom.json.JSONEventType.SET_VALUE;
+
 public class JSONDifferenceHandler implements DifferenceHandler<IOException>, Closeable {
 
-	private final JSONWriter.ArrayWriter writer;
+	private final ArrayWriter writer;
 
 	public JSONDifferenceHandler(Appendable writer) throws IOException {
 		this.writer = new JSONWriter(writer).array();
@@ -19,7 +31,7 @@ public class JSONDifferenceHandler implements DifferenceHandler<IOException>, Cl
 	@Override
 	public void onDeleteNode(Position position) throws IOException {
 		try (final var arrayWriter = writer.array()) {
-			arrayWriter.value(JSONEventType.DELETE_NODE);
+			arrayWriter.value(DELETE_NODE);
 			try (final var valueWriter = arrayWriter.value()) {
 				position.parent().appendTo(valueWriter);
 			}
@@ -30,7 +42,7 @@ public class JSONDifferenceHandler implements DifferenceHandler<IOException>, Cl
 	@Override
 	public void onDeleteElement(Selector element) throws IOException {
 		try (final var arrayWriter = writer.array()) {
-			arrayWriter.value(JSONEventType.DELETE_ELEMENT);
+			arrayWriter.value(DELETE_ELEMENT);
 			try (final var valueWriter = arrayWriter.value()) {
 				element.appendTo(valueWriter);
 			}
@@ -40,7 +52,7 @@ public class JSONDifferenceHandler implements DifferenceHandler<IOException>, Cl
 	@Override
 	public void onInsertComment(Position parent, String content) throws IOException {
 		try (final var arrayWriter = writer.array()) {
-			arrayWriter.value(JSONEventType.INSERT_COMMENT);
+			arrayWriter.value(INSERT_COMMENT);
 			try (final var valueWriter = arrayWriter.value()) {
 				parent.parent().appendTo(valueWriter);
 			}
@@ -52,7 +64,7 @@ public class JSONDifferenceHandler implements DifferenceHandler<IOException>, Cl
 	@Override
 	public void onInsertElement(Position parent, String tagName, NamedNodeMap attributes) throws IOException {
 		try (final var arrayWriter = writer.array()) {
-			arrayWriter.value(JSONEventType.INSERT_ELEMENT);
+			arrayWriter.value(INSERT_ELEMENT);
 			try (final var valueWriter = arrayWriter.value()) {
 				parent.parent().appendTo(valueWriter);
 			}
@@ -72,7 +84,7 @@ public class JSONDifferenceHandler implements DifferenceHandler<IOException>, Cl
 	@Override
 	public void onInsertText(Position position, String text) throws IOException {
 		try (final var arrayWriter = writer.array()) {
-			arrayWriter.value(JSONEventType.INSERT_TEXT);
+			arrayWriter.value(INSERT_TEXT);
 			try (final var valueWriter = arrayWriter.value()) {
 				position.parent().appendTo(valueWriter);
 			}
@@ -84,7 +96,7 @@ public class JSONDifferenceHandler implements DifferenceHandler<IOException>, Cl
 	@Override
 	public void onMoveNode(Position oldPosition, Position newPosition) throws IOException {
 		try (final var arrayWriter = writer.array()) {
-			arrayWriter.value(JSONEventType.MOVE_NODE);
+			arrayWriter.value(MOVE_NODE);
 			try (final var valueWriter = arrayWriter.value()) {
 				oldPosition.parent().appendTo(valueWriter);
 			}
@@ -99,7 +111,7 @@ public class JSONDifferenceHandler implements DifferenceHandler<IOException>, Cl
 	@Override
 	public void onMoveElement(Selector element, Position newPosition) throws IOException {
 		try (final var arrayWriter = writer.array()) {
-			arrayWriter.value(JSONEventType.MOVE_ELEMENT);
+			arrayWriter.value(MOVE_ELEMENT);
 			try (final var valueWriter = arrayWriter.value()) {
 				element.appendTo(valueWriter);
 			}
@@ -113,7 +125,7 @@ public class JSONDifferenceHandler implements DifferenceHandler<IOException>, Cl
 	@Override
 	public void onRemoveAttribute(Selector element, String name) throws IOException {
 		try (final var arrayWriter = writer.array()) {
-			arrayWriter.value(JSONEventType.REMOVE_ATTRIBUTE);
+			arrayWriter.value(REMOVE_ATTRIBUTE);
 			try (final var valueWriter = arrayWriter.value()) {
 				element.appendTo(valueWriter);
 			}
@@ -124,7 +136,7 @@ public class JSONDifferenceHandler implements DifferenceHandler<IOException>, Cl
 	@Override
 	public void onSetAttribute(Selector element, String name, String value) throws IOException {
 		try (final var arrayWriter = writer.array()) {
-			arrayWriter.value(JSONEventType.SET_ATTRIBUTE);
+			arrayWriter.value(SET_ATTRIBUTE);
 			try (final var valueWriter = arrayWriter.value()) {
 				element.appendTo(valueWriter);
 			}
@@ -136,7 +148,7 @@ public class JSONDifferenceHandler implements DifferenceHandler<IOException>, Cl
 	@Override
 	public void onSetValue(Position position, String newValue) throws IOException {
 		try (final var arrayWriter = writer.array()) {
-			arrayWriter.value(JSONEventType.SET_VALUE);
+			arrayWriter.value(SET_VALUE);
 			try (final var valueWriter = arrayWriter.value()) {
 				position.parent().appendTo(valueWriter);
 			}

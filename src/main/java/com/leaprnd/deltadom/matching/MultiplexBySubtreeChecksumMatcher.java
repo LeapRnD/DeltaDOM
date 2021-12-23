@@ -2,7 +2,6 @@ package com.leaprnd.deltadom.matching;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.leaprnd.deltadom.util.DepthFirstTreeWalker;
 import org.w3c.dom.Node;
 
 import java.util.HashMap;
@@ -12,10 +11,10 @@ import java.util.LinkedList;
 import static com.leaprnd.deltadom.Similarity.IMPOSSIBLE_MATCH;
 import static com.leaprnd.deltadom.Similarity.PERFECT_MATCH;
 import static com.leaprnd.deltadom.matching.MatcherRemovalResult.Emptied;
-import static com.leaprnd.deltadom.matching.MatcherRemovalResult.NotFound.NOT_FOUND;
+import static com.leaprnd.deltadom.matching.MatcherRemovalResult.Values.NOT_FOUND;
 import static com.leaprnd.deltadom.matching.NodeChecksum.computeChecksumsOfDescendantsOf;
 
-public class MultiplexBySubtreeChecksumMatcher implements Calculator<Node> {
+class MultiplexBySubtreeChecksumMatcher implements Calculator<Node> {
 
 	private final BiMap<Node, Node> perfect = HashBiMap.create();
 	private final HashMap<Node, Matcher<Node>> xMatchers = new HashMap<>();
@@ -23,7 +22,7 @@ public class MultiplexBySubtreeChecksumMatcher implements Calculator<Node> {
 	private final HashSet<Matcher<Node>> matchers = new HashSet<>();
 	private final Matcher<Node> fallback;
 
-	public MultiplexBySubtreeChecksumMatcher(Node xRoot, Node yRoot, MatcherFactory<Node> factory) {
+	MultiplexBySubtreeChecksumMatcher(Node xRoot, Node yRoot, MatcherFactory<Node> factory) {
 		final var xChecksums = computeChecksumsOfDescendantsOf(xRoot);
 		final var yChecksums = computeChecksumsOfDescendantsOf(yRoot);
 		fallback = factory.newMatcher();

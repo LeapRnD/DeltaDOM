@@ -1,17 +1,17 @@
-package com.leaprnd.deltadom.util;
+package com.leaprnd.deltadom.matching;
 
 import org.w3c.dom.Node;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DepthFirstTreeWalkerIterator implements Iterator<Node> {
+class DepthFirstTreeWalkerIterator implements Iterator<Node> {
 
 	private final Node root;
 	private Node current;
 	private boolean unmoved = false;
 
-	public DepthFirstTreeWalkerIterator(Node root) {
+	DepthFirstTreeWalkerIterator(Node root) {
 		this.root = root;
 		current = getDescendantOf(root);
 	}

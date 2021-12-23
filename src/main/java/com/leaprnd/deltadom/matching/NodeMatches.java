@@ -2,8 +2,8 @@ package com.leaprnd.deltadom.matching;
 
 import org.w3c.dom.Node;
 
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import static com.leaprnd.deltadom.Similarity.IMPOSSIBLE_MATCH;
 import static com.leaprnd.deltadom.Similarity.PERFECT_MATCH;
@@ -26,62 +26,34 @@ public class NodeMatches {
 		return new MultiplexBySubtreeChecksumMatcher(xRoot, yRoot, multiplexNodesByType).findMatches();
 	}
 
-	private final HashMap<Node, NodeMatch> forwards = new HashMap<>();
-	private final HashMap<Node, NodeMatch> backwards = new HashMap<>();
+	private final HashMap<Node, Node> beforeToAfter = new HashMap<>();
+	private final HashMap<Node, Node> afterToBefore = new HashMap<>();
+	private final HashSet<Node> perfect = new HashSet<>();
 
-	public void add(Node x, Node y, float similarity) {
+	public void add(Node before, Node after, float similarity) {
 		if (similarity == IMPOSSIBLE_MATCH) {
 			return;
 		}
-		final var oldY = forwards.put(x, new NodeMatch(y, similarity));
-		final var oldX = backwards.put(y, new NodeMatch(x, similarity));
+		final var oldY = beforeToAfter.put(before, after);
+		final var oldX = afterToBefore.put(after, before);
 		if (oldY != null || oldX != null) {
 			throw new IllegalStateException("Node was already present!");
 		}
-	}
-
-	public NodeMatch getAfterOf(Node before) {
-		return forwards.get(before);
-	}
-
-	public NodeMatch getBeforeOf(Node after) {
-		return backwards.get(after);
-	}
-
-	public Node getAfterNodeOf(Node before) {
-		final var match = getAfterOf(before);
-		if (match == null) {
-			return null;
+		if (similarity == PERFECT_MATCH) {
+			perfect.add(before);
 		}
-		return match.node();
 	}
 
-	public Node getBeforeNodeOf(Node after) {
-		final var match = getBeforeOf(after);
-		if (match == null) {
-			return null;
-		}
-		return match.node();
+	public Node getAfterOf(Node before) {
+		return beforeToAfter.get(before);
 	}
 
-	public Node[] getAfterNodesOf(Collection<Node> befores) {
-		var index = 0;
-		final var afters = new Node[befores.size()];
-		for (final var before : befores) {
-			final var after = getAfterNodeOf(before);
-			afters[index ++] = after;
-		}
-		return afters;
+	public Node getBeforeOf(Node after) {
+		return afterToBefore.get(after);
 	}
 
 	public boolean isPerfectMatch(Node before, Node after) {
-		final var match = forwards.get(before);
-		if (match == null) {
-			return false;
-		}
-		final var similarity = match.similarity();
-		final var matchOfBefore = match.node();
-		return similarity == PERFECT_MATCH && matchOfBefore.isSameNode(after);
+		return perfect.contains(before) && beforeToAfter.get(before).isSameNode(after);
 	}
 
 }
