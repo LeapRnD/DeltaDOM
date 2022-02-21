@@ -3,7 +3,7 @@ import static org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL;
 import static org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED;
 
 group = "com.leaprnd.deltadom"
-version = "1.0.1"
+version = "1.0.2"
 
 apply plugin: "java-library"
 
@@ -66,7 +66,7 @@ publishing {
 			pom {
 				name = "DeltaDOM"
 				description = "A high performance Java library for finding the differences between two HTML documents"
-				url = "https://github.com/Leap-R-D/DeltaDOM"
+				url = "https://github.com/LeapRnD/DeltaDOM"
 				licenses {
 					license {
 						name = "Apache-2.0"
@@ -80,9 +80,9 @@ publishing {
 					}
 				}
 				scm {
-					connection = "scm:git:git://github.com/Leap-R-D/DeltaDOM.git"
-					developerConnection = "scm:git:ssh://github.com/Leap-R-D/DeltaDOM.git"
-					url = "https://github.com/Leap-R-D/DeltaDOM.git"
+					connection = "scm:git:git://github.com/LeapRnD/DeltaDOM.git"
+					developerConnection = "scm:git:ssh://github.com/LeapRnD/DeltaDOM.git"
+					url = "https://github.com/LeapRnD/DeltaDOM.git"
 				}
 			}
 		}

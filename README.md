@@ -1,6 +1,6 @@
 # DeltaDOM
 
-[![Maven](https://badgen.net/maven/v/maven-central/com.leaprnd.deltadom/core)](https://search.maven.org/artifact/com.leaprnd.deltadom/core) [![NPM](https://badgen.net/npm/v/deltadom)](https://www.npmjs.com/package/deltadom) [![Tests](https://github.com/Leap-R-D/DeltaDOM/actions/workflows/test.yml/badge.svg)](https://github.com/Leap-R-D/DeltaDOM/actions)
+[![Maven](https://badgen.net/maven/v/maven-central/com.leaprnd.deltadom/core)](https://search.maven.org/artifact/com.leaprnd.deltadom/core) [![NPM](https://badgen.net/npm/v/deltadom)](https://www.npmjs.com/package/deltadom) [![Tests](https://github.com/LeapRnD/DeltaDOM/actions/workflows/test.yml/badge.svg)](https://github.com/LeapRnD/DeltaDOM/actions)
 
 DeltaDOM small, fast Java library for finding the differences between two HTML documents. This is primarily useful for web applications employing server-side rendering that want to push changes to the browser.
 
@@ -10,7 +10,7 @@ First you will need to add DeltaDOM to your project. If you are using [Gradle](h
 
 ```groovy
 dependencies {
-    implementation group: "com.leaprnd.deltadom", name: "core", version: "1.0.1"
+    implementation group: "com.leaprnd.deltadom", name: "core", version: "1.0.2"
 }
 ```
 
@@ -146,7 +146,7 @@ When runned, the above class will output the difference between `BEFORE_HTML` an
 ]
 ```
 
-You can install [the client-side logic](https://github.com/Leap-R-D/DeltaDOM/blob/main/src/main/javascript/DeltaDOM.js) for executing these operations via [NPM](https://www.npmjs.com/):
+You can install [the client-side logic](https://github.com/LeapRnD/DeltaDOM/blob/main/src/main/javascript/DeltaDOM.js) for executing these operations via [NPM](https://www.npmjs.com/):
 
 ```sh
 npm install deltadom
