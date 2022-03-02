@@ -10,7 +10,7 @@ First you will need to add DeltaDOM to your project. If you are using [Gradle](h
 
 ```groovy
 dependencies {
-    implementation group: "com.leaprnd.deltadom", name: "core", version: "1.0.2"
+    implementation group: "com.leaprnd.deltadom", name: "core", version: "1.0.3"
 }
 ```
 

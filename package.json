@@ -1,6 +1,6 @@
 {
 	"name": "deltadom",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Execute client-side the results generated server-side by DeltaDOM",
 	"main": "src/main/javascript/DeltaDOM.js",
 	"files": [],
