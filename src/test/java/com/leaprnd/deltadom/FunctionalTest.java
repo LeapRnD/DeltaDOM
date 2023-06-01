@@ -316,6 +316,7 @@ public class FunctionalTest {
 		options.addArguments("--headless");
 		options.addArguments("--no-sandbox");
 		options.addArguments("--disable-dev-shm-usage");
+		options.addArguments("--remote-allow-origins=*");
 		driver = new ChromeDriver(options);
 		final var server = new ContainerSocketProcessor((request, response) -> {
 			try {
